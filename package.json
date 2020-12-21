@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "postcss css/style.css -o build/styles.css"
+    "build": "postcss css/style.css -o build/styles.css",
+    "test": "mocha --reporter list"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +17,8 @@
     "tailwindcss-aspect-ratio": "^3.0.0",
     "tailwindcss-pseudo-elements": "^1.5.1",
     "three": "^0.123.0"
+  },
+  "devDependencies": {
+    "mocha": "^8.2.1"
   }
 }
