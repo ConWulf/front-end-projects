@@ -1,7 +1,13 @@
 import * as THREE from '../../node_modules/three/src/Three.js';
-import {AmbientLight, AnimationClip, AnimationMixer, PointLight} from "../../node_modules/three/src/Three.js";
+import {
+    AmbientLight,
+    AnimationClip,
+    AnimationMixer,
+    CircleGeometry, MeshNormalMaterial,
+    PointLight
+} from "../../node_modules/three/src/Three.js";
 (function () {
-let scene, renderer, camera, cube;
+let scene, renderer, camera, cube, eyes;
 
 const init = () => {
     //set up scene
@@ -14,23 +20,26 @@ const init = () => {
     document.body.appendChild(renderer.domElement);
 
 
-    const light = new AmbientLight(0xfff, 2);
+    const light = new AmbientLight(0xffffff, 5);
     scene.add(light);
 
     //create cube
     const geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5);
-    const material = new THREE.MeshBasicMaterial({color: 0x1166ee});
+    // const material = new THREE.MeshBasicMaterial({color: 0x1166ee});
+    const material = new THREE.MeshNormalMaterial();
     cube = new THREE.Mesh(geometry, material);
     cube.position.set(0,2,-2);
     scene.add(cube);
+
 
 //set camera position outside cube position
 camera.position.set(0,3,6);
 cube.rotation.set(3.5,4,0);
 }
 
-const animate = () => {
-    // requestAnimationFrame(animate);
+const animateThree = () => {
+    // requestAnimationFrame(animateThree);
+
     renderer.render(scene, camera);
 }
 
@@ -40,20 +49,22 @@ const onResize = () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-const update = () => {
-        createjs.Ticker.timingMode =  createjs.Ticker.RAF;
-    createjs.Ticker.addEventListener("tick", animate)
-    createjs.Tween.get(cube.position, {loop: true})
-        .to({y: 3.5}, 375, createjs.Ease.getPowIn(1.9))
-        .to({y: 2}, 350, createjs.Ease.getPowIn(2.5));
 
+const update = () => {
+    createjs.Ticker.timingMode =  createjs.Ticker.RAF;
+    createjs.Ticker.addEventListener("tick", animateThree)
+    createjs.Tween.get(cube.position)
+        .to({y: 3.5}, 375, createjs.Ease.getPowIn(.4))
+        .to({y: 2}, 350, createjs.Ease.linear);
+    setTimeout(update, 1000);
 }
 
 window.addEventListener("resize", onResize);
 document.addEventListener("click", update);
 
+
 init();
-animate();
+animateThree();
 
 
 
