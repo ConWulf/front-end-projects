@@ -29,18 +29,6 @@ module.exports = {
         '1/10': '10%',
         '1/20': '5%'
       },
-      textColor: [
-        'responsive',
-        'hover',
-        'focus',
-        'before',
-        'after',
-        // If you want to combine it with a pseudo class,
-        // use `<pseudo-class>_<pseudo-element>`.
-        'hover_before',
-        'hover_after',
-        'focus_before'
-      ],
     },
   },
   plugins: [
